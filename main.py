@@ -46,8 +46,11 @@ def logger(
 
 
 # 页面处理函数，返回所需的数据
-def web_elements_traversal(web_page_url_prefix='', web_page_url_index=0, web_page_url_suffix='', web_page_request_headers={}, web_page_elements_xpath_expression='', timeout=10, logger=logger):
-    web_page_url = web_page_url_prefix + str(web_page_url_index) + web_page_url_suffix
+def web_elements_traversal(web_page_url_prefix='', web_page_url_index=-1, web_page_url_suffix='', web_page_request_headers={}, web_page_elements_xpath_expression='', timeout=10, logger=logger):
+    if web_page_url_index >= 0:
+        web_page_url = web_page_url_prefix + str(web_page_url_index) + web_page_url_suffix
+    else:
+        web_page_url = web_page_url_prefix + web_page_url_suffix
     web_page_elements_got = False
     web_page_err_status = 0
     while web_page_elements_got is False and web_page_err_status <= 10:
@@ -143,7 +146,6 @@ if __name__ == '__main__':
             cartoon_img_index = 0   # 加入图片前缀，防止图片乱序，无法阅读
             for each_cartoon_page_picture_url in cartoon_page_picture_urls:
                 cartoon_img_page__prefix = each_cartoon_page_picture_url
-                cartoon_img_page_index = None
                 cartoon_img_page_suffix = ''
                 cartoon_img_page_request_headers_referer = cartoon_img_page__prefix
                 cartoon_img_page_request_headers = {
@@ -152,7 +154,7 @@ if __name__ == '__main__':
                     'User-Agent': USER_AGENT
                 }
                 cartoon_img_urls_data_xpath_expression = "//div[@id='i3']//img"
-                cartoon_img_url_data = web_elements_traversal(web_page_url_prefix=cartoon_img_page__prefix, web_page_url_index=cartoon_img_page_index, web_page_url_suffix=cartoon_img_page_suffix, web_page_request_headers=cartoon_img_page_request_headers, web_page_elements_xpath_expression=cartoon_img_urls_data_xpath_expression, timeout=60, logger=logger)
+                cartoon_img_url_data = web_elements_traversal(web_page_url_prefix=cartoon_img_page__prefix,  web_page_url_suffix=cartoon_img_page_suffix, web_page_request_headers=cartoon_img_page_request_headers, web_page_elements_xpath_expression=cartoon_img_urls_data_xpath_expression, timeout=60, logger=logger)
                 cartoon_img_url = cartoon_img_url_data[0].attrib['src']
                 cartoon_img_url_split = cartoon_img_url.split('/', -1)
                 cartoon_img_file_name = cartoon_img_url_split[-1]
