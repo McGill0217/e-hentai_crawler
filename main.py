@@ -83,6 +83,7 @@ if __name__ == '__main__':
     # 1111111111111111111111111
     # 网页页面循环，取出所有卡通页面的URL
     for web_page_url_index in range(0, 17560 + 1):
+        logger.info('网页索引：' + str(web_page_url_index))
         web_page_url_prefix = 'https://e-hentai.org/?p='
         web_page_url_suffix = ''
         if web_page_url_index == 0:
