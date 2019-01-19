@@ -134,7 +134,7 @@ if __name__ == '__main__':
                     cartoon_page_picture_urls.append(cartoon_page_picture_urls_datum.attrib['href'])
             # 创建 目录，用于保存图片
             # 去除目录中的特殊字符： \/:*?"<>|
-            cartoon_dir_name = re.sub(r'[\/:*?"<>|]', '', cartoon_page_title)
+            cartoon_dir_name = re.sub(r'[\/:*?"<>|]', '', cartoon_page_post_date + ' - ' + cartoon_page_title)
             cartoon_dir = main_dir + cartoon_dir_name + '\\'
             # 建立目录，用于保存图片
             if os.path.exists(cartoon_dir) is False:
